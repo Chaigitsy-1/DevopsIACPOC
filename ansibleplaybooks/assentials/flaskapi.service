@@ -1,0 +1,13 @@
+[Unit]
+Description=Flask Service
+After=multi-user.target
+
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /root/assentials/requestmaker.py
+StandardInput=tty-force
+Restart=Always
+
+[Install]
+WantedBy=multi-user.target

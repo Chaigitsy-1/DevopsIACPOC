@@ -1,0 +1,38 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become_user: root
+  become: yes
+  tasks:
+    - name: start nginx service
+      shell: service nginx start
+    - name: copy html and flask files and execute them
+      copy:
+        src: assentials
+        dest: /root
+        mode: 777
+    - name: make html capable to do work
+      shell: sh /root/assentials/publicip.sh
+
+    - name: rm index file
+      shell: rm -rf /var/www/html/index.nginx-debian.html
+   
+    - name: cp index file
+      shell: cp /root/assentials/apihtml.html /var/www/html/index.nginx-debian.html
+    - name: give permissions for new html
+      shell: chmod 777 /var/www/html/index.nginx-debian.html
+    - name: service nginx 
+      shell: service nginx restart
+    - name: start and database tables
+      shell: python3 /root/assentials/dbconnector.py
+    - name: copy service file to the system 
+      shell: cp /root/assentials/flaskapi.service /etc/systemd/system
+    - name: allow 5000 port
+      shell: ufw allow 5000
+    - name: start flaskapi service
+      service:
+        name: flaskapi
+        state: started
+        enabled: yes
+      become: yes 
+

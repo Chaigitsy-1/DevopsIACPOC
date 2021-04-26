@@ -1,0 +1,48 @@
+---
+- name: Install python packages
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  hosts: all
+  tasks:
+  - name: add nginx ppa
+    #become_user: chaitu
+    apt_repository:
+      repo: "ppa:nginx/stable"
+
+  - name: install common packages needed for python application development
+    apt:
+      name: "{{ item }}"
+    with_items:
+      - libpq-dev
+      - libmysqlclient-dev
+      - libxml2-dev
+      - libjpeg62
+      - libjpeg62-dev
+      - libfreetype6
+      - libfreetype6-dev
+      - zlib1g-dev
+      - mysql-client
+      - python-dev
+      - python-setuptools
+      - python-imaging
+      - python-mysqldb
+      - python-psycopg2
+      - git-core
+      - nginx
+
+  - name: install pip
+    apt:
+      name: python3-pip
+      update_cache: yes
+      state: present
+
+  - name: install various libraries with pip
+    pip:
+      name: "{{ item }}"
+    with_items:
+      - flask
+      - virtualenv
+      - supervisor
+      - uwsgi
+      - mysql-connector-python-rf

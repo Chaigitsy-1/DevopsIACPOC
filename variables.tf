@@ -1,0 +1,8 @@
+variable "AWS_ACCESS_KEY" {}
+variable "AWS_SECRET_KEY" {}
+variable "pvtkeypath" {}
+variable "keyname" {}
+
+variable "AWS_REGION" {
+    default="ap-south-1"
+}
