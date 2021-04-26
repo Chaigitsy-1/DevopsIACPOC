@@ -19,7 +19,7 @@ pipeline {
       
         stage ("terrafrom plan") {
             steps {
-                sh 'terraform plan '
+                sh 'terraform plan -var 'AWS_ACCESS_KEY'=$(AWS_ACCESS_KEY) -var 'AWS_SECRET_KEY'=$(AWS_SECRET_KEY) -var 'pvtkeypath'=$(pvtkeypath) -var 'keyname'=$(keyname)'
             }
         }
         stage ("terraform apply") {
