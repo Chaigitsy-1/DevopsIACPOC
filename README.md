@@ -17,6 +17,4 @@ The 'ansibleplaybooks' consists of configuration of required packages required f
 The 'scripts' folder consists of the backend scripts just for a reference
 The 'ansibleplaybooks/assentials' folder consists of html,BE,and few configuration files
 
-
-
-
+I have configured all the setup on a single instance as its a simple application, in case if you want a clustered approach we can increase count to 'n' instances in ec2launch.tf and mention the instance on which you want to apply the playbook in the provisioner local-exec block ansible command  and haven't used docker images as t2.micro is having memory constraints. 
