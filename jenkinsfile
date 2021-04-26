@@ -24,7 +24,7 @@ pipeline {
         }
         stage ("terraform apply") {
             steps {
-                sh 'terraform apply --auto-approve'
+                sh 'terraform apply -var 'AWS_ACCESS_KEY'=$(AWS_ACCESS_KEY) -var 'AWS_SECRET_KEY'=$(AWS_SECRET_KEY) -var 'pvtkeypath'=$(pvtkeypath) -var 'keyname'=$(keyname) --auto-approve'
             }
         }
     }
